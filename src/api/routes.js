@@ -1,8 +1,11 @@
 const StudentsHandler = require("./handler/student.handler");
-const UsersHandler = require("./handler/user.handler")
+const UsersHandler = require("./handler/user.handler");
+const ProjectHandler = require("./handler/project.handler");
 
 const studentHandler = new StudentsHandler();
-const userHandler = new UsersHandler()
+const userHandler = new UsersHandler();
+const projectHandler = new ProjectHandler();
+
 
 const add = (method, path, handler) => {
     return {
@@ -19,6 +22,8 @@ const routes = () => {
         add("GET", "/students/name/{name}", studentHandler.getStudentByNameHandler),
         add("GET", "/users/name/{name}", userHandler.getUsersByUsername),
         add("GET", "/users", userHandler.getAllUsers),
+        add("GET", "/projects", projectHandler.getProjectAllHandler),
+        
         // {
         //     method: "GET",
         //     path: "/students",

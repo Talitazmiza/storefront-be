@@ -1,6 +1,6 @@
 const NotFoundError = require("../exceptions/NotFoundError");
-const { Student } = require("../repository/student.repository")
-const { ResponseService } = require("./../helpers/hapiResponse")
+const { Student } = require("../repository/student.repository");
+const { ResponseService } = require("./../helpers/hapiResponse");
 
 class StudentService {
     constructor() {
@@ -37,9 +37,9 @@ class StudentService {
 
     async getStudentAll() {
         try {
-            const students = await this.studentRepository.GetAll("id, nrp, gender");
+            const students = await this.studentRepository.GetAll("id, nrp, bio, gender");
             const transformer = this.transformers(students)
-            return ResponseService(200, "success get students", transformer)
+            return ResponseService(200, "yay success get all student", transformer)
         } catch (e) {
             console.log('ERROR ==== ', e)
             throw new NotFoundError("Something Wrong");
