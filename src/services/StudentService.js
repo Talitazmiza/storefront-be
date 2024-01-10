@@ -77,6 +77,10 @@ class StudentService {
             throw new NotFoundError("Something wrong")
         }
     }
+
+    async storeStudent(data) {
+        
+    }
 }
 
 module.exports = StudentService;

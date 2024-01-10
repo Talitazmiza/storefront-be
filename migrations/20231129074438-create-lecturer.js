@@ -2,27 +2,31 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('technologies', {
+    await queryInterface.createTable('lecturers', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      cluster_id: {
+      user_id: {
         type: Sequelize.DataTypes.INTEGER,
         references: {
-          models: {
-            tableName: "technology_clusters"
+          model: {
+            tableName: 'users',
           },
-          key: "id"
+          key: 'id'
         },
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       name: {
         type: Sequelize.STRING
       },
-      code: {
+      nip: {
+        type: Sequelize.STRING
+      },
+      gender: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -36,6 +40,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('technologies');
+    await queryInterface.dropTable('lecturers');
   }
 };

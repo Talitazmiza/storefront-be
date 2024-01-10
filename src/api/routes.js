@@ -18,7 +18,7 @@ const add = (method, path, handler) => {
 const routes = () => {
     return [
         add("GET", "/students", studentHandler.getStudentAllHandler),
-        add("GET", "/students/{id}", studentHandler.getStudentByIdHandler),
+        add("GET", "/student/{id}", studentHandler.getStudentByIdHandler),
         add("GET", "/students/name/{name}", studentHandler.getStudentByNameHandler),
         add("GET", "/users/name/{name}", userHandler.getUsersByUsername),
         add("GET", "/users", userHandler.getAllUsers),
