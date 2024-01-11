@@ -3,12 +3,14 @@ const UsersHandler = require("./handler/user.handler");
 const ProjectHandler = require("./handler/project.handler");
 const LecturersHandler = require("./handler/lecturer.handler");
 const ClustersHandler = require("./handler/cluster.handler");
+const TechnologyHandler = require("./handler/technology.handler");
 
 const studentHandler = new StudentsHandler();
 const userHandler = new UsersHandler();
 const projectHandler = new ProjectHandler();
 const lecturerHandler = new LecturersHandler();
 const clusterHandler = new ClustersHandler();
+const technologyHandler = new TechnologyHandler();
 
 
 const add = (method, path, handler) => {
@@ -31,6 +33,7 @@ const routes = () => {
         add("GET", "/lecturer/{id}", lecturerHandler.getLecturerByIdHandler),
         add("GET", "/lecturer/name/{name}", lecturerHandler.getLecturerByNameHandler),
         add("GET", "/clusters", clusterHandler.getTechClusterAllHandler),
+        add("GET", "/technologies", technologyHandler.getTechnologyAllHandler),
         // {
         //     method: "GET",
         //     path: "/students",
