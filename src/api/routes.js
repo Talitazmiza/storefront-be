@@ -23,7 +23,9 @@ const routes = () => {
         add("GET", "/users/name/{name}", userHandler.getUsersByUsername),
         add("GET", "/users", userHandler.getAllUsers),
         add("GET", "/projects", projectHandler.getProjectAllHandler),
-        
+
+        add("POST", "/register", userHandler.storeUsers),
+
         // {
         //     method: "GET",
         //     path: "/students",

@@ -1,6 +1,6 @@
 // const { nanoid } = require("nanoid");
 // const { Pool } = require("pg");
-// const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
 // const InvariantError = require("../exceptions/InvariantError");
 
 // const slug = require("slug");
@@ -18,11 +18,14 @@
 const NotFoundError = require("../exceptions/NotFoundError");
 const { User } = require("../repository/user.repository");
 const { ResponseService } = require("../helpers/hapiResponse");
+const { ADMIN_ROLE, STUDENT_ROLE } = require("../const/constdata")
 
 class UsersService {
 
     constructor() {
         this.userRepository = new User();
+
+        this.storeUser = this.storeUser.bind(this);
     }
 
     transformer(data) {
@@ -60,6 +63,60 @@ class UsersService {
         } catch (e) {
             console.log('ERROR === ', e)
             throw new NotFoundError("Somwhat Wrong");
+        }
+    }
+
+
+    async storeUser(user) {
+        try {
+            // Check duplicate username
+            const userByUsername = await this.userRepository.GetByUsername(user.username)
+
+            if (userByUsername !== null) {
+                return ResponseService(400, "username is already in use")
+            }
+
+            // Check duplicate email
+            const userByEmail = await this.userRepository.GetByEmail(user.email)
+
+            if (userByEmail !== null) {
+                return ResponseService(400, "email is already in use")
+            }
+
+            let entity = new Object
+
+            switch (user.role_id) {
+                case ADMIN_ROLE:
+                    // map admin attributes here
+
+                    break;
+                case STUDENT_ROLE:
+                    entity.full_name = user.full_name
+                    entity.nrp = user.nrp
+                    entity.bio = user.bio
+                    entity.gender = user.gender
+                    entity.photo = user.photo
+
+                    break;
+                default:
+                    return ResponseService(400, "invalid role")
+            }
+
+            let newUser = new Object;
+            newUser.role_id = user.role_id
+            newUser.username = user.username
+            const salt = await bcrypt.genSalt();
+            const hashPassword = await bcrypt.hash(user.password, salt);
+            newUser.password = hashPassword
+            newUser.email = user.email
+            newUser.status = false
+
+            await this.userRepository.Store(newUser, entity)
+
+            return ResponseService(201, "register successfully")
+        } catch (error) {
+            console.log('ERROR ===', error);
+            return new NotFoundError('Something wrong')
         }
     }
 

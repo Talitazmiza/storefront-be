@@ -7,6 +7,8 @@ class Student {
     }
 
     defaultQuery(selectedFields) {
+        // console.log("SELECTED FIELDS : ", selectedFields);
+
         return (selectedFields !== undefined) ?
             `SELECT ${selectedFields} FROM ${this.table()}` :
             `SELECT * FROM ${this.table()}`
@@ -49,6 +51,12 @@ class Student {
             console.log(`FAILED TO GET STUDENT BY NAME [${name}] : `, error);
             throw error
         }
+    }
+
+    async generateStoreQuery(student) {
+        const fields = 'user_id, full_name, nrp, bio, gender, photo, created_at, updated_at'
+        const values = `${student.user_id}, '', '', '', '', '', NOW(), NOW()`
+        return`INSERT INTO ${this.table()} (${fields}) VALUES (${values}) RETURNING *`
     }
 }
 

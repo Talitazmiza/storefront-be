@@ -1,4 +1,5 @@
 const NotFoundError = require("../exceptions/NotFoundError");
+const student = require("../models/student");
 const { Student } = require("../repository/student.repository");
 const { ResponseService } = require("./../helpers/hapiResponse");
 
@@ -12,7 +13,7 @@ class StudentService {
 
         student["Id"] = data.id
         student["UserId"] = data.user_id
-        student["FullName"] = data.fullName
+        student["FullName"] = data.full_name
         student["Nrp"] = data.nrp
         student["Bio"] = data.bio
         student["Gender"] = data.gender
@@ -37,7 +38,7 @@ class StudentService {
 
     async getStudentAll() {
         try {
-            const students = await this.studentRepository.GetAll("id, nrp, bio, gender");
+            const students = await this.studentRepository.GetAll("id, full_name, nrp, bio, gender");
             const transformer = this.transformers(students)
             return ResponseService(200, "yay success get all student", transformer)
         } catch (e) {
