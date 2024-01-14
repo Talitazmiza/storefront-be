@@ -57,6 +57,34 @@ class TechnologyService {
         }
     }
 
+    async updateTechnology(id, technologyRequest) {
+        try {
+            const techData = await this.technologyRepository.UpdateTechnology(id, technologyRequest);
+            if(techData==null){
+                return ResponseService(404, "technology data not found", techData)
+            } else {
+                return ResponseService(200, "yayyy update technology succeed", techData)
+            }
+        } catch (e) {
+            console.log('ERROR ==== ', e)
+            throw new NotFoundError("Something Wrong");
+        }
+    }
+
+    async deleteTechnology(id) {
+        try {
+            const techStore = await this.technologyRepository.DeleteTechnology(id);
+            if(techStore==null){
+                return ResponseService(404, "technology data not found", techStore)
+            } else {
+                return ResponseService(200, "yayyy delete technology succeed", techStore)
+            }
+        } catch (e) {
+            console.log('ERROR ==== ', e)
+            throw new NotFoundError("Something Wrong");
+        }
+    }
+
 }
 
 module.exports = TechnologyService;

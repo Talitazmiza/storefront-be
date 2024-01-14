@@ -68,6 +68,14 @@ const routes = () => {
                 })
             }
         }),
+        add("PUT", "/technologies/update/{id}", technologyHandler.updateTechnologyHandler, {
+            validate: {
+                payload: Joi.object({
+                    name: Joi.string().min(3).max(255).required()
+                })
+            }
+        }),
+        add("DELETE", "/technologies/delete/{id}", technologyHandler.deleteTechnologyHandler),
 
 
         // {
