@@ -43,6 +43,20 @@ class TechnologyService {
         }
     }
 
+    async storeTechnology(technologyRequest) {
+        try {
+            const techData = await this.technologyRepository.StoreTechnology(technologyRequest);
+            if(techData==null) {
+                return ResponseService(200, "technology data exist!", techData)
+            } else {
+                return ResponseService(200, "yayy store technology succeed", techData.rows[0])
+            }
+        } catch (e) {
+            console.log('ERROR === ', e)
+            throw new NotFoundError("Something Wrong");
+        }
+    }
+
 }
 
 module.exports = TechnologyService;

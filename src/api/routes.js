@@ -36,11 +36,13 @@ const routes = () => {
         add("GET", "/lecturers", lecturerHandler.getLecturerAllHandler),
         add("GET", "/lecturer/{id}", lecturerHandler.getLecturerByIdHandler),
         add("GET", "/lecturer/name/{name}", lecturerHandler.getLecturerByNameHandler),
+        
+        // CLUSTER
         add("GET", "/clusters", clusterHandler.getTechClusterAllHandler),
         add("POST", "/clusters", clusterHandler.storeTechClusterHandler, {
             validate: {
                 payload: Joi.object({
-                    name: Joi.string().min(3).max(255)
+                    name: Joi.string().min(3).max(255).required(),
                 })
             }
         }),
@@ -53,8 +55,20 @@ const routes = () => {
             }
         }),
         add("DELETE", "/clusters/delete/{id}", clusterHandler.deleteTechClusterHandler),
-        add("GET", "/technologies", technologyHandler.getTechnologyAllHandler),
         
+        
+        // TECHNOLOGY
+        add("GET", "/technologies", technologyHandler.getTechnologyAllHandler),
+        add("POST", "/technologies", technologyHandler.storeTechnologyHandler, {
+            validate: {
+                payload: Joi.object({
+                    cluster_id: Joi.number().required(),
+                    name: Joi.string().min(3).max(255).required(),
+                    code: Joi.string().min(3).max(255).required()
+                })
+            }
+        }),
+
 
         // {
         //     method: "GET",

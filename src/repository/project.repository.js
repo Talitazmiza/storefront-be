@@ -49,6 +49,18 @@ class Project{
         }
     }
 
+    fixNotSyncedId(){
+        return `SELECT setval('${this.table()}_id_seq', COALESCE((SELECT MAX(id)+1 FROM ${this.table()}), 1), false)`;
+    }
+
+    searchByFieldQuery(selectedField, selectedValue, selectedFields) {
+        return (selectedField !== undefined && selectedValue !== undefined) ?
+            `SELECT ${selectedFields} FROM ${this.table()} WHERE ${selectedField} = '${selectedValue}'` :
+            `SELECT ${selectedFields} FROM ${this.table()} LIMIT 1`
+    }
+
+    
+
 }
 
 module.exports = {

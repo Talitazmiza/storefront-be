@@ -16,9 +16,10 @@ const init = async () => {
         port: 8000,
         host: "localhost",
         routes: {
-            files: {
-                relativeTo: Path.join(__dirname, '..', 'public')
-            }
+            // files: {
+            //     relativeTo: Path.join(__dirname, '..', 'public')
+            // }
+            "cors": true
         }
     });
 
