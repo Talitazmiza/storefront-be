@@ -76,6 +76,20 @@ class LecturerService {
         }
     }
 
+    async deleteLecturer(id) {
+        try {
+            const lecturerStore = await this.lecturerRepository.DeleteLecturer(id);
+            if(lecturerStore==null){
+                return ResponseService(404, "cluster data not found", lecturerStore)
+            } else {
+                return ResponseService(200, "yayyy delete lecturer succeed", lecturerStore)
+            }
+        } catch (e) {
+            console.log('ERROR ==== ', e)
+            throw new NotFoundError("Something Wrong");
+        }
+    }
+
 
 }
 

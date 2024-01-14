@@ -7,6 +7,7 @@ class LecturersHandler {
         this.getLecturerAllHandler = this.getLecturerAllHandler.bind(this);
         this.getLecturerByIdHandler = this.getLecturerByIdHandler.bind(this);
         this.getLecturerByNameHandler = this.getLecturerByNameHandler.bind(this);
+        this.deleteLecturerHandler = this.deleteLecturerHandler.bind(this)
     }
 
     async getLecturerAllHandler(request, h) {
@@ -35,7 +36,17 @@ class LecturersHandler {
             return CatchResponse(h, error, "failed to get lecturer by NAME")
         }
     }
+
+    async deleteLecturerHandler(request, h) {
+        try {
+            const response = await this._service.deleteLecturer(request.params.id);
+            return ResponseHandlerFromService(h, response)
+        } catch (error) {
+            return CatchResponse(h, error, "failed to delete lecturer")
+        }
+    }
 }
+
 
 module.exports = LecturersHandler;
 

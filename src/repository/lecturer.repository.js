@@ -11,6 +11,16 @@ class Lecturer{
             `SELECT * FROM ${this.table()}`
     }
 
+    searchByFieldQuery(selectedField, selectedValue, selectedFields) {
+        return (selectedField !== undefined && selectedValue !== undefined) ?
+            `SELECT ${selectedFields} FROM ${this.table()} WHERE ${selectedField} = '${selectedValue}'` :
+            `SELECT ${selectedFields} FROM ${this.table()} LIMIT 1`
+    }
+
+    deleteQuery(id) {
+        return `DELETE FROM ${this.table()} where id = ${id} `; 
+    }
+
     async GetAll(selectedFields) {
         try {
             return (await DB.query(this.defaultQuery(selectedFields))).rows
@@ -46,6 +56,21 @@ class Lecturer{
         return result
         } catch {
             console.log(`FAILED TO GET LECTURER BY NAME [${name}] :`, error)
+            throw error
+        }
+    }
+
+    async DeleteLecturer(id) {
+        try {
+            var existingData = await DB.query(this.searchByFieldQuery("id", id, "id, name")); //buat cek apakah data cluster dg id yg dimaksud ada/enggak
+            if(existingData.rowCount>0){ //mastiin kalo datanya ada kalo gada nanti takutnya eror
+                await DB.query(this.deleteQuery(id))
+                return existingData.rows[0];
+            } else {
+                return null; //kalo gada berarti gagal update data not found
+            }
+        } catch (error) {
+            console.log("FAILED TO DELETE LECTURER : ", error);
             throw error
         }
     }

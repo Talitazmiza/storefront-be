@@ -24,6 +24,12 @@ const add = (method, path, handler, options = null) => {
 
 const routes = () => {
     return [
+        // User
+        add("POST", "/register", userHandler.storeUsers),
+        add("GET", "/users/name/{name}", userHandler.getUsersByUsername),
+        add("GET", "/users", userHandler.getAllUsers),
+        add("DELETE", "/users/delete/{id}", userHandler.deleteUserHandler),
+
         // Student
         add("GET", "/students", studentHandler.getStudentAllHandler),
         add("GET", "/student/{id}", studentHandler.getStudentByIdHandler),
@@ -34,12 +40,9 @@ const routes = () => {
         add("GET", "/lecturers", lecturerHandler.getLecturerAllHandler),
         add("GET", "/lecturer/{id}", lecturerHandler.getLecturerByIdHandler),
         add("GET", "/lecturer/name/{name}", lecturerHandler.getLecturerByNameHandler),
+        add("DELETE", "/lecturers/delete/{id}", lecturerHandler.deleteLecturerHandler),
 
-        // User
-        add("POST", "/register", userHandler.storeUsers),
-        add("GET", "/users/name/{name}", userHandler.getUsersByUsername),
-        add("GET", "/users", userHandler.getAllUsers),
-        add("DELETE", "/users/delete/{id}", userHandler.deleteUserHandler),
+        
 
 
         // Project
