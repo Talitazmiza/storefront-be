@@ -1,5 +1,4 @@
-const { DB } = require('./../database/config')
-const StudentExample = require("./../models/student")
+const { DB } = require('./../database/config');
 
 class Student {
     table() {

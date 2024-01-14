@@ -32,7 +32,6 @@ class StudentService {
             const student = students[index]
             result.push(this.transformer(student))
         }
-
         return result
     }
 
@@ -77,6 +76,10 @@ class StudentService {
             console.log("ERROR === ", e);
             throw new NotFoundError("Something wrong")
         }
+    }
+
+    async storeStudent(data) {
+        
     }
 }
 
