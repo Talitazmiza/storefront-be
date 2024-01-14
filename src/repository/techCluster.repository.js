@@ -12,7 +12,8 @@ class TechCluster {
     }
 
     fixNotSyncedId(){
-        return `SELECT setval('${this.table()}_id_seq', COALESCE((SELECT MAX(id)+1 FROM ${this.table()}), 1), false)`;
+        return `SELECT setval('${this.table()}_id_seq', COALESCE((SELECT MAX(id)+1 FROM ${this.table()}), 1), false)`; 
+        //function ini buat sinkronisasi id di db soalnya kadang sinkron takutnya ada duplicate id gitu, wajib dirun sebelum create data
     }
 
     searchByFieldQuery(selectedField, selectedValue, selectedFields) {
