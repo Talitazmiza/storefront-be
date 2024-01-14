@@ -42,6 +42,65 @@ class TechClusterService {
         }
     }
 
+    async getTechClusterById(id) {
+        try {
+            const clusters = await this.techClusterRepository.GetById(id, "id, name");
+            if(clusters==null){
+                return ResponseService(404, "data cluster not found", null)
+            } else {
+                const transformer = this.transformer(clusters)
+                return ResponseService(200, "yay success get single tech cluster", transformer)
+            }
+           
+        } catch (e) {
+            console.log('ERROR ==== ', e)
+            throw new NotFoundError("Something Wrong");
+        }
+    }
+
+    async storeTechCluster(clusterRequest) {
+        try {
+            const clusterData = await this.techClusterRepository.StoreCluster(clusterRequest);
+            if(clusterData==null){
+                return ResponseService(200, "cluster data existed!", clusterData)
+            } else {
+                return ResponseService(200, "yayyy store cluster succeed", clusterData.rows[0])
+            }
+        } catch (e) {
+            console.log('ERROR ==== ', e)
+            throw new NotFoundError("Something Wrong");
+        }
+    }
+
+    async updateTechCluster(id, clusterRequest) {
+        try {
+            const clusterData = await this.techClusterRepository.UpdateCluster(id, clusterRequest);
+            if(clusterData==null){
+                return ResponseService(404, "cluster data not found", clusterData)
+            } else {
+                return ResponseService(200, "yayyy update cluster succeed", clusterData)
+            }
+        } catch (e) {
+            console.log('ERROR ==== ', e)
+            throw new NotFoundError("Something Wrong");
+        }
+    }
+
+    async deleteTechCluster(id) {
+        try {
+            const clusterStore = await this.techClusterRepository.DeleteCluster(id);
+            if(clusterStore==null){
+                return ResponseService(404, "cluster data not found", clusterStore)
+            } else {
+                return ResponseService(200, "yayyy delete cluster succeed", clusterStore)
+            }
+        } catch (e) {
+            console.log('ERROR ==== ', e)
+            throw new NotFoundError("Something Wrong");
+        }
+    }
+    
+
 
 }
 

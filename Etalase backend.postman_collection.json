@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "3e9d2bca-5eac-49eb-b506-e4a2fe277ced",
+		"_postman_id": "c0854a04-8ac4-492d-bb04-639cd15d056b",
 		"name": "Etalase backend",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "13375578"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "13450770"
 	},
 	"item": [
 		{
@@ -26,17 +26,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "http://localhost:8000/students",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"students"
-							]
-						}
+						"url": "http://localhost:8000/students"
 					},
 					"response": []
 				},
@@ -45,18 +35,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8000/student/1",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"student",
-								"1"
-							]
-						}
+						"url": "http://localhost:8000/student/1"
 					},
 					"response": []
 				},
@@ -65,19 +44,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8000/student/name/sutiman",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"student",
-								"name",
-								"sutiman"
-							]
-						}
+						"url": "http://localhost:8000/student/name/sutiman"
 					},
 					"response": []
 				}
@@ -91,17 +58,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8000/projects",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"projects"
-							]
-						}
+						"url": "http://localhost:8000/projects"
 					},
 					"response": []
 				},
@@ -109,7 +66,8 @@
 					"name": "getProjectById",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": ""
 					},
 					"response": []
 				},
@@ -117,7 +75,8 @@
 					"name": "getProjectByTech",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": ""
 					},
 					"response": []
 				}
@@ -135,17 +94,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8000/users",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"users"
-							]
-						}
+						"url": "http://localhost:8000/users"
 					},
 					"response": []
 				}
@@ -153,7 +102,297 @@
 		},
 		{
 			"name": "Cluster",
-			"item": []
+			"item": [
+				{
+					"name": "storeCluster",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"Data Science\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{HOST}}/clusters"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\" : \"Data Science\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{HOST}}/clusters"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-length",
+									"value": "116"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Jan 2024 07:54:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"StatusCode\": 200,\n    \"Status\": \"success\",\n    \"Message\": \"yayyy store cluster succeed\",\n    \"Data\": {\n        \"id\": 15,\n        \"name\": \"Data Science\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getClutserById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST}}/clusters/1"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{HOST}}/clusters/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-length",
+									"value": "119"
+								},
+								{
+									"key": "accept-ranges",
+									"value": "bytes"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Jan 2024 07:53:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"StatusCode\": 200,\n    \"Status\": \"success\",\n    \"Message\": \"yay success get single tech cluster\",\n    \"Data\": {\n        \"Id\": 1,\n        \"Name\": \"frontend\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "getAllCluster",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{HOST}}/clusters"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{HOST}}/clusters"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-length",
+									"value": "354"
+								},
+								{
+									"key": "accept-ranges",
+									"value": "bytes"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Jan 2024 07:53:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"StatusCode\": 200,\n    \"Status\": \"success\",\n    \"Message\": \"yay success get all tech cluster\",\n    \"Data\": [\n        {\n            \"Id\": 1,\n            \"Name\": \"frontend\"\n        },\n        {\n            \"Id\": 2,\n            \"Name\": \"backend\"\n        },\n        {\n            \"Id\": 3,\n            \"Name\": \"database\"\n        },\n        {\n            \"Id\": 9,\n            \"Name\": \"machine learning\"\n        },\n        {\n            \"Id\": 11,\n            \"Name\": \"Networking\"\n        },\n        {\n            \"Id\": 12,\n            \"Name\": \"Mobile Development\"\n        },\n        {\n            \"Id\": 13,\n            \"Name\": \"Desktop Development\"\n        },\n        {\n            \"Id\": 14,\n            \"Name\": \"Character Development\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "updateCluster",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"Web Development\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{HOST}}/clusters/update/1"
+					},
+					"response": [
+						{
+							"name": "updateCluster",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\" : \"Web Development\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{HOST}}/clusters/update/1"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-length",
+									"value": "119"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Jan 2024 07:53:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"StatusCode\": 200,\n    \"Status\": \"success\",\n    \"Message\": \"yayyy update cluster succeed\",\n    \"Data\": {\n        \"id\": 1,\n        \"name\": \"Web Development\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "deleteCluster",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{HOST}}/clusters/delete/3"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{HOST}}/clusters/delete/3"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "cache-control",
+									"value": "no-cache"
+								},
+								{
+									"key": "content-length",
+									"value": "112"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Jan 2024 07:53:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"StatusCode\": 200,\n    \"Status\": \"success\",\n    \"Message\": \"yayyy delete cluster succeed\",\n    \"Data\": {\n        \"id\": 3,\n        \"name\": \"database\"\n    }\n}"
+						}
+					]
+				}
+			]
 		},
 		{
 			"name": "Technology",
@@ -163,21 +402,38 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "http://localhost:8000/technologies",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8000",
-							"path": [
-								"technologies"
-							]
-						}
+						"url": "http://localhost:8000/technologies"
 					},
 					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "HOST",
+			"value": "http://localhost:8000",
+			"type": "string"
 		}
 	]
 }

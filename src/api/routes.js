@@ -4,6 +4,7 @@ const ProjectHandler = require("./handler/project.handler");
 const LecturersHandler = require("./handler/lecturer.handler");
 const ClustersHandler = require("./handler/cluster.handler");
 const TechnologyHandler = require("./handler/technology.handler");
+const Joi = require('joi');
 
 const studentHandler = new StudentsHandler();
 const userHandler = new UsersHandler();
@@ -12,12 +13,12 @@ const lecturerHandler = new LecturersHandler();
 const clusterHandler = new ClustersHandler();
 const technologyHandler = new TechnologyHandler();
 
-
-const add = (method, path, handler) => {
+const add = (method, path, handler, options = null) => {
     return {
         method: method,
         path: path,
-        handler: handler
+        handler: handler, 
+        options : options
     }
 }
 
@@ -36,7 +37,25 @@ const routes = () => {
         add("GET", "/lecturer/{id}", lecturerHandler.getLecturerByIdHandler),
         add("GET", "/lecturer/name/{name}", lecturerHandler.getLecturerByNameHandler),
         add("GET", "/clusters", clusterHandler.getTechClusterAllHandler),
+        add("POST", "/clusters", clusterHandler.storeTechClusterHandler, {
+            validate: {
+                payload: Joi.object({
+                    name: Joi.string().min(3).max(255)
+                })
+            }
+        }),
+        add("GET", "/clusters/{id}", clusterHandler.getTechClusterByIdHandler),
+        add("PUT", "/clusters/update/{id}", clusterHandler.updateTechClusterHandler, {
+            validate: {
+                payload: Joi.object({
+                    name: Joi.string().min(3).max(255)
+                })
+            }
+        }),
+        add("DELETE", "/clusters/delete/{id}", clusterHandler.deleteTechClusterHandler),
         add("GET", "/technologies", technologyHandler.getTechnologyAllHandler),
+        
+
         // {
         //     method: "GET",
         //     path: "/students",
