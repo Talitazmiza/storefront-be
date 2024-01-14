@@ -31,7 +31,6 @@ class StudentService {
             const student = students[index]
             result.push(this.transformer(student))
         }
-
         return result
     }
 
