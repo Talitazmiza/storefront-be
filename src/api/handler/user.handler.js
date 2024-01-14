@@ -8,6 +8,7 @@ class UsersHandler {
         this.getUsersByUsername = this.getUsersByUsername.bind(this)
         this.getAllUsers = this.getAllUsers.bind(this)
         this.storeUsers = this.storeUsers.bind(this)
+        this.deleteUserHandler = this.deleteUserHandler.bind(this)
     }
 
     async getAllUsers(request, h) {
@@ -48,6 +49,15 @@ class UsersHandler {
         } catch (error) {
             console.log("ERROR : ", error);
             return CatchResponse(h, error, "failed to create student")
+        }
+    }
+
+    async deleteUserHandler(request, h) {
+        try {
+            const response = await this._service.deleteUser(request.params.id);
+            return ResponseHandlerFromService(h, response)
+        } catch (error) {
+            return CatchResponse(h, error, "failed to delete user")
         }
     }
 }

@@ -7,6 +7,7 @@ class StudentsHandler {
         this.getStudentAllHandler = this.getStudentAllHandler.bind(this);
         this.getStudentByIdHandler = this.getStudentByIdHandler.bind(this);
         this.getStudentByNameHandler = this.getStudentByNameHandler.bind(this);
+        this.deleteStudentHandler = this.deleteStudentHandler.bind(this);
     }
 
     async getStudentAllHandler(request, h){
@@ -33,6 +34,15 @@ class StudentsHandler {
             return ResponseHandlerFromService(response)
         } catch (error) {
            return CatchResponse(h, error, "failed to get student")
+        }
+    }
+
+    async deleteStudentHandler(request, h) {
+        try {
+            const response = await this._service.deleteStudent(request.params.id);
+            return ResponseHandlerFromService(h, response)
+        } catch (error) {
+            return CatchResponse(h, error, "failed to delete student")
         }
     }
 }

@@ -53,7 +53,7 @@ class ClustersHandler {
             const response = await this._service.deleteTechCluster(request.params.id);
             return ResponseHandlerFromService(h, response)
         } catch (error) {
-            return CatchResponse(h, error, "failed to update cluster")
+            return CatchResponse(h, error, "failed to delete cluster")
         }
     }
 }

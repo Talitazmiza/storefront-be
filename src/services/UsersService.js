@@ -24,7 +24,6 @@ class UsersService {
 
     constructor() {
         this.userRepository = new User();
-
         this.storeUser = this.storeUser.bind(this);
     }
 
@@ -120,209 +119,19 @@ class UsersService {
         }
     }
 
-    // async addUser({ name,username,confPassword , email,address, password,as,role_id ,phone_number}) {
-
-    //     await this.verifyNewUserCompany(username,email);
-
-    //     const id = `user-${nanoid(16)}`;
-
-    //     const salt = await bcrypt.genSalt();
-    //     const hashPassword = await bcrypt.hash(password, salt);
-    //     const slug_data = slug(name, '-');
-
-    //     try {
-    //         const user = await User.create({
-    //             role_id: role_id,
-    //             full_name: name,
-    //             slug: slug_data,
-    //             username: username,
-    //             email: email,
-    //             address: address,
-    //             password: hashPassword
-    //         });
-
-    //         if (role_id == 2){
-    //             companyDetailService.addTmpCompanyDetail(user.id,phone_number);
-    //             console.log('company');
-    //         }else {
-
-    //             candidateDetailService.addTmpCandidateDetail(user.id,phone_number);
-    //             console.log('candidate');
-    //         }
-    //         return user.id;
-
-    //     }catch (e) {
-
-    //         console.log(e)
-    //         throw new InvariantError("User gagal ditambahkan");
-
-    //     }
-    // }
-    // async updateUsers({ user_id,name,username,confPassword , email,address, password,as,role_id ,phone_number}) {
-
-    //     await this.verifyNewUserCompany(username,email);
-
-
-    //     const salt = await bcrypt.genSalt();
-    //     const hashPassword = await bcrypt.hash(password, salt);
-    //     const slug_data = slug(name, '-');
-
-    //     try {
-    //         const user = await User.update({
-    //             role_id: role_id,
-    //             full_name: name,
-    //             slug: slug_data,
-    //             username: username,
-    //             email: email,
-    //             password: hashPassword
-    //         },{
-    //             where: {
-    //                 id : user_id
-    //             }
-    //         });
-
-    //         if (role_id == 2){
-    //             companyDetailService.addTmpCompanyDetail(user.id,phone_number);
-    //             console.log('company');
-    //         }else {
-
-    //             candidateDetailService.addTmpCandidateDetail(user.id,phone_number);
-    //             console.log('candidate');
-    //         }
-    //         return user.id;
-
-    //     }catch (e) {
-
-    //         console.log(e)
-    //         throw new InvariantError("User gagal ditambahkan");
-
-    //     }
-    // }
-
-    // async verifyNewUserCompany(username,email) {
-
-    //     // const data = await User.findAll();
-    //     // const data = await User.findAll({ include: { association: 'role' } });
-
-
-    //     const cek_username = await User.findOne({ where: { username: username } });
-    //     const cek_email = await User.findOne({ where: { email: email } });
-
-
-    //     if (cek_username) {
-    //         throw new InvariantError("Gagal menambahkan user. Username sudah digunakan.");
-    //     }
-
-    //     if (cek_email) {
-    //         throw new InvariantError("Gagal menambahkan user. Email sudah digunakan.");
-    //     }
-    // }
-
-    // async getUserAll(page_tmp,size_tmp,search_tmp,role_tmp) {
-
-
-    //     const page = page_tmp || 0;
-    //     const size = size_tmp || 10;
-    //     const search = search_tmp || '';
-    //     const role = role_tmp || '';
-    //     const { limit, offset } = await paginationHelper.getPagination(page, size);
-
-    //     let condition ;
-
-    //     if (search && role){
-    //         condition = {
-    //             [Op.and]: {
-    //                 full_name: {[Op.iLike]: `%${search}%`},
-    //                 role_id: role,
-    //             }
-    //         };
-    //     }else if(search){
-    //         // console.log('sini')
-    //         condition = {
-    //             [Op.or]: {
-    //                 full_name: {[Op.iLike]: `%${search}%`},
-    //             }
-    //         };
-    //     }else if (role){
-    //         console.log('sini')
-    //         condition = {
-    //             [Op.or]: {
-    //                 role_id: role,
-    //             }
-    //         };
-    //     }else {
-    //         condition = null;
-    //     }
-    //     try {
-    //         const models = await User.findAndCountAll({
-    //             where: condition,
-    //             limit,
-    //             offset,
-    //         });
-
-    //         const response = paginationHelper.getPagingData(models, page, limit);
-    //         return ResponseService(200, "success get users", response);
-
-    //     }catch (e) {
-    //         console.log("ERROR : ", e);
-    //         throw new NotFoundError("terjadi kesalahan");
-
-    //     }
-
-    // }
-
-    // async getProfile(decodeJwt) {
-    //     var data ;
-    //     try {
-
-    //         data = await User.findOne({
-    //             where:{
-    //                 id : decodeJwt.id
-    //             }
-    //         });
-
-    //         return data;
-
-    //     }catch (e) {
-    //         throw new NotFoundError("profile tidak ditemukan");
-    //     }
-
-    // }
-
-    // async verifyUserCredential(username, password) {
-
-    //     const data = await User.findOne({
-    //         where: { username: username },
-    //         include: { association: 'role' }
-    //     });
-
-
-
-    //     if (!data) {
-    //         throw new InvariantError("Kredensial yang Anda berikan salah");
-    //     }
-
-    //     const match = await bcrypt.compare(password, data.password);
-
-    //     if (!match) {
-    //         throw new AuthenticationError("Kredensial yang Anda berikan salah");
-    //     }
-    //     return data;
-    // }
-
-    // async getUsersByUsername(username) {
-    //   try {
-    //     const query = {
-    //         text: "SELECT id, username FROM users WHERE username LIKE $1",
-    //         values: [`%${username}%`],
-    //     };
-    //     const result = await this._pool.query(query);
-
-    //     return ResponseService(200, "success get users", result.rows)
-    //   } catch (error) {
-    //     throw error
-    //   }
-    // }
+    async deleteUser(id) {
+        try {
+            const userStore = await this.userRepository.DeleteUser(id);
+            if(userStore==null){
+                return ResponseService(404, "cluster data not found", userStore)
+            } else {
+                return ResponseService(200, "yayyy delete user succeed", userStore)
+            }
+        } catch (e) {
+            console.log('ERROR ==== ', e)
+            throw new NotFoundError("Something Wrong");
+        }
+    }
 }
 
 module.exports = UsersService;

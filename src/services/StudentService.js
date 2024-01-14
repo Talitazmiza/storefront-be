@@ -78,8 +78,18 @@ class StudentService {
         }
     }
 
-    async storeStudent(data) {
-        
+    async deleteStudent(id) {
+        try {
+            const studentStore = await this.studentRepository.DeleteStudent(id);
+            if(studentStore==null){
+                return ResponseService(404, "cluster data not found", studentStore)
+            } else {
+                return ResponseService(200, "yayyy delete student succeed", studentStore)
+            }
+        } catch (e) {
+            console.log('ERROR ==== ', e)
+            throw new NotFoundError("Something Wrong");
+        }
     }
 }
 

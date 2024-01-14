@@ -24,20 +24,29 @@ const add = (method, path, handler, options = null) => {
 
 const routes = () => {
     return [
+        // Student
         add("GET", "/students", studentHandler.getStudentAllHandler),
         add("GET", "/student/{id}", studentHandler.getStudentByIdHandler),
         add("GET", "/students/name/{name}", studentHandler.getStudentByNameHandler),
-        add("GET", "/users/name/{name}", userHandler.getUsersByUsername),
-        add("GET", "/users", userHandler.getAllUsers),
-        add("GET", "/projects", projectHandler.getProjectAllHandler),
-
-        add("POST", "/register", userHandler.storeUsers),
-
+        add("DELETE", "/students/delete/{id}", studentHandler.deleteStudentHandler),
+        
+        // Lecturer
         add("GET", "/lecturers", lecturerHandler.getLecturerAllHandler),
         add("GET", "/lecturer/{id}", lecturerHandler.getLecturerByIdHandler),
         add("GET", "/lecturer/name/{name}", lecturerHandler.getLecturerByNameHandler),
+
+        // User
+        add("POST", "/register", userHandler.storeUsers),
+        add("GET", "/users/name/{name}", userHandler.getUsersByUsername),
+        add("GET", "/users", userHandler.getAllUsers),
+        add("DELETE", "/users/delete/{id}", userHandler.deleteUserHandler),
+
+
+        // Project
+        add("GET", "/projects", projectHandler.getProjectAllHandler),
         
-        // CLUSTER
+
+        // Cluster
         add("GET", "/clusters", clusterHandler.getTechClusterAllHandler),
         add("POST", "/clusters", clusterHandler.storeTechClusterHandler, {
             validate: {
@@ -57,7 +66,7 @@ const routes = () => {
         add("DELETE", "/clusters/delete/{id}", clusterHandler.deleteTechClusterHandler),
         
         
-        // TECHNOLOGY
+        // Technology
         add("GET", "/technologies", technologyHandler.getTechnologyAllHandler),
         add("POST", "/technologies", technologyHandler.storeTechnologyHandler, {
             validate: {
@@ -76,6 +85,22 @@ const routes = () => {
             }
         }),
         add("DELETE", "/technologies/delete/{id}", technologyHandler.deleteTechnologyHandler),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         // {
