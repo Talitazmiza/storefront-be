@@ -80,7 +80,7 @@ class Student {
     }
 
     async generateStoreQuery(student) {
-        const fields = 'user_id, full_name, nrp, bio, gender, photo, created_at, updated_at'
+        const fields = 'user_id, fullName, nrp, bio, gender, photo, created_at, updated_at'
         const values = `${student.user_id}, '', '', '', '', '', NOW(), NOW()`
         return`INSERT INTO ${this.table()} (${fields}) VALUES (${values}) RETURNING *`
     }
