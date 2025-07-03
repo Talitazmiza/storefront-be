@@ -4,11 +4,23 @@ require('dotenv/config')
 const Hapi = require('@hapi/hapi');
 const Path = require('path');
 const students = require("./api/index");
-const { InitializeDatabase } = require('./database/config')
+// const { InitializeDatabase } = require('./database/config')
 
 const init = async () => {
 
-    await InitializeDatabase();
+    // await InitializeDatabase();
+
+    const clientOpts = {
+        settings: {
+            host: 'localhost',
+            port: 3306,
+            user: 'root',
+            password: '',
+            database: 'etapens',
+            // connectionLimit: 10, // Optional: set connection limit
+        },
+        decorate: true, // Add the plugin to the request object.
+    };
 
     // const studentService = new StudentService();
 
@@ -37,6 +49,10 @@ const init = async () => {
         {
             plugin: students,
         },
+        {
+            plugin: require('hapi-mysql2'),
+            options: clientOpts,
+        }
     ]);
 
 
