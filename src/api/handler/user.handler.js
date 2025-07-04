@@ -34,16 +34,15 @@ class UsersHandler {
     async storeUsers(request, h) {
         try {
             const user = new Object
-            user.role_id = request.payload.RoleId
-            user.username = request.payload.Username
-            user.password = request.payload.Password
-            user.email = request.payload.Email
-            user.full_name = request.payload.Fullname
-            user.nrp = request.payload.Nrp
-            user.bio = request.payload.Bio
-            user.gender = request.payload.Gender
-            user.photo = request.payload.Photo
-
+            user.role_id = request.payload.role_id
+            user.username = request.payload.username
+            user.password = request.payload.password
+            user.email = request.payload.email
+            // user.full_name = request.payload.full_name
+            // user.nrp = request.payload.nrp
+            // user.bio = request.payload.bio
+            // user.gender = request.payload.Gender
+            // user.photo = request.payload.Photo
             const response = await this._service.storeUser(user)
             return ResponseHandlerFromService(h, response)
         } catch (error) {

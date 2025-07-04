@@ -13,7 +13,7 @@ class StudentService {
 
         student["Id"] = data.id
         student["UserId"] = data.user_id
-        student["FullName"] = data.full_name
+        student["FullName"] = data.fullName
         student["Nrp"] = data.nrp
         student["Bio"] = data.bio
         student["Gender"] = data.gender

@@ -12,12 +12,23 @@ class TechnologyRepository {
     }
 
     async GetAll(selectedFields) {
-        try {
-            return (await DB.query(this.defaultQuery(selectedFields))).rows
-        } catch (error) {
-            console.log("FAILED TO GET ALL TECHNOLOGY")
-            throw error
-        }
+        // try {
+        //     return (await DB.query(this.defaultQuery(selectedFields))).rows
+        // } catch (error) {
+        //     console.log("FAILED TO GET ALL TECHNOLOGY")
+        //     throw error
+        // }
+        return new Promise((resolve, reject) => {
+            DB.query(this.defaultQuery(selectedFields), [], function (err, results) {
+                if (err) {
+                    return reject(err)
+                }
+
+                console.log(results);
+
+                return resolve(results);
+            })
+        })
     }
 
     fixNotSyncedId(){

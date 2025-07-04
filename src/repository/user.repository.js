@@ -24,27 +24,48 @@ class User{
     }
 
     async GetAll(selectedFields) {
-        try {
-            return (await DB.query(this.defaultQuery(selectedFields))).rows
-        } catch (error) {
-            console.log("FAILED TO GET ALL STUDENTS : ", error);
-            throw error
-        }
+        // try {
+        //     return (await DB.query(this.defaultQuery(selectedFields))).rows
+        // } catch (error) {
+        //     console.log("FAILED TO GET ALL STUDENTS : ", error);
+        //     throw error
+        // }
+        return new Promise((resolve, reject) => {
+            DB.query(this.defaultQuery(selectedFields), [], function (err, results) {
+                if (err) {
+                    return reject(err)
+                }
+
+                console.log(results);
+
+                return resolve(results);
+            })
+        })
     }
 
     async GetById(id, selectedFields) {
-        try {
-            const result = await DB.query(`${this.defaultQuery(selectedFields)} WHERE id = ${id}`)
-
-            if (result.rows[0] !== undefined) {
-                return result.rows[0]
-            }
-
-            return null
-        } catch (error) {
-            console.log("FAILED TO GET USER BY ID [${id}] : ", error);
-            throw error
-        }
+        // try {
+        //     const result = await DB.query(`${this.defaultQuery(selectedFields)} WHERE id = ${id}`)
+        //
+        //     if (result.rows[0] !== undefined) {
+        //         return result.rows[0]
+        //     }
+        //     return null
+        // } catch (error) {
+        //     console.log("FAILED TO GET USER BY ID [${id}] : ", error);
+        //     throw error
+        // }
+        // return new Promise((resolve, reject) => {
+        //     DB.query(`${this.defaultQuery(selectedFields)} WHERE id = ${id}`, [], function (err, results) {
+        //         if (err) {
+        //             return reject(err)
+        //         }
+        //
+        //         console.log(results);
+        //
+        //         return resolve(results);
+        //     })
+        // })
     }
 
     async GetByUsername(username, selectedFields) {
@@ -80,7 +101,7 @@ class User{
     async Store(user, entity) {
         try {
             await DB.query("BEGIN")
-            const userFields = 'role_id, username, password, email, status, created_at, updated_at'
+            const userFields = 'role_id, username, password, email, created_at, updated_at'
             const userValues = `${user.role_id}, '${user.username}', '${user.password}', '${user.email}', ${user.status}, NOW(), NOW()`
             const userQuery = `INSERT INTO ${this.table()} (${userFields}) VALUES (${userValues}) RETURNING *`
             const newUser = await DB.query(userQuery)
