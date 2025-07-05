@@ -48,12 +48,11 @@ class StudentService {
 
     async getStudentById(id) {
         try {
-            const student = await this.studentRepository.GetById(id, "nrp");
-            console.log(student.nrp);
-            if (student === null) {
-                return await ResponseService(404, "student not found")
-            }
-
+            const student = await this.studentRepository.GetById(id, "fullName, nrp, bio, gender");
+            // console.log(student.nrp);
+            // if (student === null) {
+            //     return await ResponseService(404, "student not found")
+            // }
             const transformer = this.transformer(student)
             return ResponseService(200, "success get student", transformer)
         } catch (e) {

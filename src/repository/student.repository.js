@@ -50,18 +50,27 @@ class Student {
     }
 
     async GetById(id, selectedFields) {
-        try {
-            const result = await DB.query(`${this.defaultQuery(selectedFields)} WHERE id = ${id}`)
-
-            if (result.rows[0] !== undefined) {
-                return result.rows[0]
-            }
-
-            return null
-        } catch (error) {
-            console.log(`FAILED TO GET STUDENT BY ID [${id}] : `, error);
-            throw error
-        }
+        // try {
+        //     const result = await DB.query(`${this.defaultQuery(selectedFields)} WHERE id = ${id}`)
+        //
+        //     if (result.rows[0] !== undefined) {
+        //         return result.rows[0]
+        //     }
+        //
+        //     return null
+        // } catch (error) {
+        //     console.log(`FAILED TO GET STUDENT BY ID [${id}] : `, error);
+        //     throw error
+        // }
+        return new Promise((resolve, reject) => {
+            DB.query(`${this.defaultQuery(selectedFields)} WHERE id = ${id}`, [], function (err, results) {
+                if (err) {
+                    return reject(err)
+                }
+                console.log(results);
+                return resolve(results);
+            })
+        })
     }
 
     async GetByName(name, selectedFields) {
