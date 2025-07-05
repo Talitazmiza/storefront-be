@@ -45,7 +45,7 @@ const routes = () => {
 
         // Project
         add("GET", "/projects", projectHandler.getProjectAllHandler),
-        
+        add("GET", "/project/{id}", projectHandler.getProjectByIdHandler),
 
         // Cluster
         add("GET", "/clusters", clusterHandler.getTechClusterAllHandler),
@@ -69,6 +69,7 @@ const routes = () => {
         
         // Technology
         add("GET", "/technologies", technologyHandler.getTechnologyAllHandler),
+        add("GET", "/technology/{id}", technologyHandler.getTechnologyByIdHandler),
         add("POST", "/technologies", technologyHandler.storeTechnologyHandler, {
             validate: {
                 payload: Joi.object({
