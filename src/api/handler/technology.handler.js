@@ -5,11 +5,11 @@ class TechnologiesHandler {
     constructor() {
         this._service = new TechnologyService();
         this.getTechnologyAllHandler = this.getTechnologyAllHandler.bind(this);
+        this.getTechnologyByIdHandler = this.getTechnologyByIdHandler.bind(this);
         this.storeTechnologyHandler = this.storeTechnologyHandler.bind(this);
         this.updateTechnologyHandler = this.updateTechnologyHandler.bind(this);
         this.deleteTechnologyHandler = this.deleteTechnologyHandler.bind(this);
     }
-
 
 
 async getTechnologyAllHandler(request, h) {
@@ -20,6 +20,15 @@ async getTechnologyAllHandler(request, h) {
         return CatchResponse(h, error, "failed to get all technology")
     }
 }
+
+    async getTechnologyByIdHandler(request, h){
+        try {
+            const response = await this._service.getProjectById(request.params.id);
+            return ResponseHandlerFromService(h, response)
+        } catch (error) {
+            return CatchResponse(h, error, "failed to get project")
+        }
+    }
 
 async storeTechnologyHandler(request, h) {
     try {

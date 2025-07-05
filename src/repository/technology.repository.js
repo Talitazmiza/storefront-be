@@ -31,6 +31,18 @@ class TechnologyRepository {
         })
     }
 
+    async GetById(id, selectedFields) {
+        return new Promise((resolve, reject) => {
+            DB.query(`${this.defaultQuery(selectedFields)} WHERE id = ${id}`, [], function (err, results) {
+                if (err) {
+                    return reject(err)
+                }
+                console.log(results);
+                return resolve((results[0] !== undefined) ? results[0] : null)
+            })
+        })
+    }
+
     fixNotSyncedId(){
         return `SELECT setval('${this.table()}_id_seq', COALESCE((SELECT MAX(id)+1 FROM ${this.table()}), 1), false)`;
     }

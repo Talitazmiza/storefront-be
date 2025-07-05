@@ -41,6 +41,22 @@ class TechnologyService {
             console.log('ERROR ==== ', e)
             throw new NotFoundError("Something Wrong");
         }
+
+    }
+
+    async getProjectById(id) {
+        try {
+            const student = await this.technologyRepository.GetById(id, "id, cluster_id, name, code");
+            // console.log(student.nrp);
+            // if (student === null) {
+            //     return await ResponseService(404, "student not found")
+            // }
+            const transformer = this.transformer(student)
+            return ResponseService(200, "success get project", transformer)
+        } catch (e) {
+            console.log("ERROR === ", e);
+            throw new NotFoundError("Something wrong")
+        }
     }
 
     async storeTechnology(technologyRequest) {
