@@ -31,18 +31,27 @@ class Project{
     }
 
     async GetById(id, selectedFields) {
-        try {
-            const result = await DB.query(`${this.defaulQuery(selectedFields)} WHERE id = ${id}`)
-
-            if (result.rows[0] !== undefined) {
-                return result.rows[0]
-            }
-
-            return null
-        } catch (error) {
-            console.log("FAILED TO GET USER BY ID [${id}] : ", error);
-            throw error
-        }
+        // try {
+        //     const result = await DB.query(`${this.defaulQuery(selectedFields)} WHERE id = ${id}`)
+        //
+        //     if (result.rows[0] !== undefined) {
+        //         return result.rows[0]
+        //     }
+        //
+        //     return null
+        // } catch (error) {
+        //     console.log("FAILED TO GET USER BY ID [${id}] : ", error);
+        //     throw error
+        // }
+        return new Promise((resolve, reject) => {
+            DB.query(`${this.defaultQuery(selectedFields)} WHERE id = ${id}`, [], function (err, results) {
+                if (err) {
+                    return reject(err)
+                }
+                console.log(results);
+                return resolve((results[0] !== undefined) ? results[0] : null)
+            })
+        })
     }
 
     async GetByTitle(title, selectedFields) {

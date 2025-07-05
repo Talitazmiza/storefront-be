@@ -47,21 +47,17 @@ class ProjectService {
         }
     }
 
-    // async getProjectById(id) {
-    //     try {
-    //         const project = await this.studentRepository.GetById(id, "nrp");
-    //         console.log(project.id);
-    //         if (student === null) {
-    //             return await ResponseService(404, "student not found")
-    //         }
+    async getProjecttById(id) {
+        try {
+            const student = await this.projectRepository.GetById(id, "id, user_id, title, abstract");
+            const transformer = this.transformer(student)
+            return ResponseService(200, "success get project", transformer)
+        } catch (e) {
+            console.log("ERROR === ", e);
+            throw new NotFoundError("Something wrong")
+        }
+    }
 
-    //         const transformer = this.transformer(student)
-    //         return ResponseService(200, "success get student", transformer)
-    //     } catch (e) {
-    //         console.log("ERROR === ", e);
-    //         throw new NotFoundError("Something wrong")
-    //     }
-    // }
 }
 
 module.exports = ProjectService;
