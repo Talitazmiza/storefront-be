@@ -68,7 +68,7 @@ class Student {
                     return reject(err)
                 }
                 console.log(results);
-                return resolve(results);
+                return resolve((results[0] !== undefined) ? results[0] : null)
             })
         })
     }
