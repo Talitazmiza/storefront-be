@@ -14,7 +14,7 @@ class TechnologiesHandler {
 
 async getTechnologyAllHandler(request, h) {
     try {
-        const response = await this._service.getTechnologyAll();
+        const response = await this._service.getTechnologyAll(request.query);
         return ResponseHandlerFromService(h, response)
     } catch (error) {
         return CatchResponse(h, error, "failed to get all technology")

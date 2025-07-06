@@ -11,15 +11,10 @@ class TechnologyRepository {
         `SELECT * FROM ${this.table()}`
     }
 
-    async GetAll(selectedFields) {
-        // try {
-        //     return (await DB.query(this.defaultQuery(selectedFields))).rows
-        // } catch (error) {
-        //     console.log("FAILED TO GET ALL TECHNOLOGY")
-        //     throw error
-        // }
+    async GetAll(query, selectedFields) {
+        var nameQuery = query.name!=undefined ? `%${query.name}%` : '';
         return new Promise((resolve, reject) => {
-            DB.query(this.defaultQuery(selectedFields), [], function (err, results) {
+            DB.query(`${this.defaultQuery(selectedFields)}${Object.keys(query).length === 0 ? '' : ` WHERE name LIKE '${nameQuery}'`}`, [], function (err, results) {
                 if (err) {
                     return reject(err)
                 }

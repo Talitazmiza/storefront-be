@@ -32,11 +32,11 @@ class TechnologyService {
         return result
     }
 
-    async getTechnologyAll() {
+    async getTechnologyAll(query) {
         try {
-            const technologies = await this.technologyRepository.GetAll("id, cluster_id, code, name");
+            const technologies = await this.technologyRepository.GetAll(query, "id, cluster_id, code, name");
             const transformer = this.transformers(technologies)
-            return ResponseService(200, "yay success get all tech cluster", transformer)
+            return ResponseService(200, "yay success get technology", transformer)
         } catch (e) {
             console.log('ERROR ==== ', e)
             throw new NotFoundError("Something Wrong");
