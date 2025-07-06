@@ -1,4 +1,5 @@
 const { DB } = require('./../database/config')
+const {ResponseHandlerFromService, CatchResponse} = require("../helpers/hapiResponse");
 
 class Project{
     table() {
@@ -11,18 +12,14 @@ class Project{
         `SELECT * FROM ${this.table()}`
     }
 
-    async GetAll(selectedFields) {
-        // try {
-        //     return (await DB.query(this.defaulQuery(selectedFields))).rows
-        // } catch (error) {
-        //     console.log("FAILED TO GET ALL PROJECT : ", error);
-        // }
+    async GetAll(query, selectedFields) {
+        var titleQuery = query.title!=undefined ? `%${query.title}%` : '';
+        var abstractQuery = query.abstract!=undefined ? `%${query.abstract}%` : '';
         return new Promise((resolve, reject) => {
-            DB.query(this.defaultQuery(selectedFields), [], function (err, results) {
+            DB.query(`${this.defaultQuery(selectedFields)} WHERE title LIKE '${titleQuery}' OR abstract LIKE '${abstractQuery}'`, [], function (err, results) {
                 if (err) {
                     return reject(err)
                 }
-
                 console.log(results);
 
                 return resolve(results);
@@ -55,18 +52,27 @@ class Project{
     }
 
     async GetByTitle(title, selectedFields) {
-        try {
-            const result = await DB.query(`${this.defaultQuery(selectedFields)} WHERE id LIKE '%${title}%'`)
-
-            if (length.result === 1) {
-                return result.rows[0]
-            }
-
-            return result
-        } catch (error) {
-            console.log(`FAILED TO GET USER BY TITLE [${title}] : `, error);
-            throw error
-        }
+        // try {
+        //     const result = await DB.query(`${this.defaultQuery(selectedFields)} WHERE id LIKE '%${title}%'`)
+        //
+        //     if (length.result === 1) {
+        //         return result.rows[0]
+        //     }
+        //
+        //     return result
+        // } catch (error) {
+        //     console.log(`FAILED TO GET USER BY TITLE [${title}] : `, error);
+        //     throw error
+        // }
+        return new Promise((resolve, reject) => {
+            DB.query(`${this.defaultQuery(selectedFields)} WHERE title LIKE '%${title}%'`, [], function (err, results) {
+                if (err) {
+                    return reject(err)
+                }
+                console.log(results);
+                return resolve(results);
+            })
+        })
     }
 
     fixNotSyncedId(){
@@ -79,7 +85,20 @@ class Project{
             `SELECT ${selectedFields} FROM ${this.table()} LIMIT 1`
     }
 
-    
+    async DeleteProject(id) {
+        try {
+            var existingData = await DB.query(this.searchByFieldQuery("id", id, "id, full_name")); //buat cek apakah data cluster dg id yg dimaksud ada/enggak
+            if(existingData.rowCount>0){ //mastiin kalo datanya ada kalo gada nanti takutnya eror
+                await DB.query(this.deleteQuery(id))
+                return existingData.rows[0];
+            } else {
+                return null; //kalo gada berarti gagal update data not found
+            }
+        } catch (error) {
+            console.log("FAILED TO DELETE STUDENT : ", error);
+            throw error
+        }
+    }
 
 }
 

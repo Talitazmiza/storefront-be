@@ -42,10 +42,10 @@ const routes = () => {
         add("GET", "/lecturer/name/{name}", lecturerHandler.getLecturerByNameHandler),
         add("DELETE", "/lecturers/delete/{id}", lecturerHandler.deleteLecturerHandler),
 
-
         // Project
         add("GET", "/projects", projectHandler.getProjectAllHandler),
         add("GET", "/project/{id}", projectHandler.getProjectByIdHandler),
+        // add("GET", "/project/{title}", projectHandler.getProjectByTitleHandler),
 
         // Cluster
         add("GET", "/clusters", clusterHandler.getTechClusterAllHandler),

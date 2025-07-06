@@ -36,9 +36,9 @@ class ProjectService {
         return result
     }
 
-    async getProjectAll() {
+    async getProjectAll(query) {
         try {
-            const project = await this.projectRepository.GetAll("id, user_id, title, abstract, file, photo");
+            const project = await this.projectRepository.GetAll(query,"id, user_id, title, abstract, file, photo");
             const transformer = this.transformers(project)
             return ResponseService(200, "yay success get all project", transformer)
         } catch (e) {
@@ -47,16 +47,41 @@ class ProjectService {
         }
     }
 
-    async getProjecttById(id) {
+    async getProjectById(id) {
         try {
-            const student = await this.projectRepository.GetById(id, "id, user_id, title, abstract");
-            const transformer = this.transformer(student)
+            const project = await this.projectRepository.GetById(id, "id, user_id, title, abstract");
+            const transformer = this.transformer(project)
             return ResponseService(200, "success get project", transformer)
         } catch (e) {
             console.log("ERROR === ", e);
             throw new NotFoundError("Something wrong")
         }
     }
+
+    async getProjecttByTitle(title) {
+        try {
+            const project = await this.projectRepository.GetByTitle(title, "id, user_id, title, abstract");
+            const transformer = this.transformer(project)
+            return ResponseService(200, "success get project", transformer)
+        } catch (e) {
+            console.log("ERROR === ", e);
+            throw new NotFoundError("Something wrong")
+        }
+    }
+
+    // async deleteProject(id) {
+    //     try {
+    //         const projectStore = await this.studentRepository.DeleteStudent(id);
+    //         if(studentStore==null){
+    //             return ResponseService(404, "cluster data not found", studentStore)
+    //         } else {
+    //             return ResponseService(200, "yayyy delete student succeed", studentStore)
+    //         }
+    //     } catch (e) {
+    //         console.log('ERROR ==== ', e)
+    //         throw new NotFoundError("Something Wrong");
+    //     }
+    // }
 
 }
 
