@@ -35,9 +35,9 @@ class StudentService {
         return result
     }
 
-    async getStudentAll() {
+    async getStudentAll(query) {
         try {
-            const students = await this.studentRepository.GetAll("id, fullName, nrp, bio, gender");
+            const students = await this.studentRepository.GetAll(query,"id, fullName, nrp, bio, gender");
             const transformer = this.transformers(students)
             return ResponseService(200, "yay success get all student", transformer)
         } catch (e) {

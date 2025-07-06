@@ -33,8 +33,8 @@ const routes = () => {
         // Student
         add("GET", "/students", studentHandler.getStudentAllHandler),
         add("GET", "/student/{id}", studentHandler.getStudentByIdHandler),
-        add("GET", "/students/name/{name}", studentHandler.getStudentByNameHandler),
-        add("DELETE", "/students/delete/{id}", studentHandler.deleteStudentHandler),
+        // add("GET", "/students/name/{name}", studentHandler.getStudentByNameHandler),
+        // add("DELETE", "/students/delete/{id}", studentHandler.deleteStudentHandler),
         
         // Lecturer
         add("GET", "/lecturers", lecturerHandler.getLecturerAllHandler),

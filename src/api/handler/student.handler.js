@@ -6,13 +6,14 @@ class StudentsHandler {
         this._service = new StudentService();
         this.getStudentAllHandler = this.getStudentAllHandler.bind(this);
         this.getStudentByIdHandler = this.getStudentByIdHandler.bind(this);
-        this.getStudentByNameHandler = this.getStudentByNameHandler.bind(this);
-        this.deleteStudentHandler = this.deleteStudentHandler.bind(this);
+        // this.getStudentByNameHandler = this.getStudentByNameHandler.bind(this);
+        // this.deleteStudentHandler = this.deleteStudentHandler.bind(this);
     }
 
     async getStudentAllHandler(request, h){
         try {
-            const response = await this._service.getStudentAll();
+            console.log(request.query);
+            const response = await this._service.getStudentAll(request.query);
             return ResponseHandlerFromService(h, response)
         } catch (error) {
            return CatchResponse(h, error, "failed to get all students")
@@ -28,23 +29,23 @@ class StudentsHandler {
         }
     }
 
-    async getStudentByNameHandler(request, h){
-        try {
-            const response = await this._service.getStudentByName(request.params.name);
-            return ResponseHandlerFromService(response)
-        } catch (error) {
-           return CatchResponse(h, error, "failed to get student")
-        }
-    }
+    // async getStudentByNameHandler(request, h){
+    //     try {
+    //         const response = await this._service.getStudentByName(request.params.name);
+    //         return ResponseHandlerFromService(response)
+    //     } catch (error) {
+    //        return CatchResponse(h, error, "failed to get student")
+    //     }
+    // }
 
-    async deleteStudentHandler(request, h) {
-        try {
-            const response = await this._service.deleteStudent(request.params.id);
-            return ResponseHandlerFromService(h, response)
-        } catch (error) {
-            return CatchResponse(h, error, "failed to delete student")
-        }
-    }
+    // async deleteStudentHandler(request, h) {
+    //     try {
+    //         const response = await this._service.deleteStudent(request.params.id);
+    //         return ResponseHandlerFromService(h, response)
+    //     } catch (error) {
+    //         return CatchResponse(h, error, "failed to delete student")
+    //     }
+    // }
 }
 
 module.exports = StudentsHandler;
