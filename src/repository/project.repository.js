@@ -15,8 +15,9 @@ class Project{
     async GetAll(query, selectedFields) {
         var titleQuery = query.title!=undefined ? `%${query.title}%` : '';
         var abstractQuery = query.abstract!=undefined ? `%${query.abstract}%` : '';
+        console.log(query);
         return new Promise((resolve, reject) => {
-            DB.query(`${this.defaultQuery(selectedFields)} WHERE title LIKE '${titleQuery}' OR abstract LIKE '${abstractQuery}'`, [], function (err, results) {
+            DB.query(`${this.defaultQuery(selectedFields)}${Object.keys(query).length === 0 ? '' : ` WHERE title LIKE '${titleQuery}' OR abstract LIKE '${abstractQuery}'`}`, [], function (err, results) {
                 if (err) {
                     return reject(err)
                 }

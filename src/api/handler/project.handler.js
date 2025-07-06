@@ -6,7 +6,7 @@ class ProjectHandler {
         this._service = new ProjectService();
         this.getProjectAllHandler = this.getProjectAllHandler.bind(this);
         this.getProjectByIdHandler = this.getProjectByIdHandler.bind(this);
-        this.getProjectByTitleHandler = this.getProjectByTitleHandler.bind(this);
+        // this.getProjectByTitleHandler = this.getProjectByTitleHandler.bind(this);
     }
 
     async getProjectAllHandler(request, h){
@@ -28,14 +28,14 @@ class ProjectHandler {
         }
     }
 
-    async getProjectByTitleHandler(request, h){
-        try {
-            const response = await this._service.getProjecttByTitle(request.params.title);
-            return ResponseHandlerFromService(h, response)
-        } catch (error) {
-            return CatchResponse(h, error, "failed to get project")
-        }
-    }
+    // async getProjectByTitleHandler(request, h){
+    //     try {
+    //         const response = await this._service.getProjecttByTitle(request.params.title);
+    //         return ResponseHandlerFromService(h, response)
+    //     } catch (error) {
+    //         return CatchResponse(h, error, "failed to get project")
+    //     }
+    // }
 
 
 
